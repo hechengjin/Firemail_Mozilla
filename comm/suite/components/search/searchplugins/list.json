@@ -1,0 +1,209 @@
+{
+  "default": {
+    "searchDefault": "DuckDuckGo",
+    "searchOrder": ["DuckDuckGo", "Google", "Yahoo"],
+    "visibleDefaultEngines": [
+      "duckduckgo", "google", "wikipedia", "yahoo"
+    ]
+  },
+  "regionOverrides": {},
+  "locales": {
+    "en-US": {
+      "default": {
+        "visibleDefaultEngines": [
+          "duckduckgo-en-US", "google", "wikipedia", "yahoo", "amazon", "ebay", "duckduckgo"
+        ]
+      }
+    },
+    "cs": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Seznam", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "google", "seznam-cz", "duckduckgo-cs-CZ", "heureka-cz", "mapy-cz", "wikipedia-cz", "duckduckgo"
+        ]
+      }
+    },
+    "de": {
+      "default": {
+        "visibleDefaultEngines": [
+          "duckduckgo-de-DE", "google", "amazon-de", "wikipedia-de", "yahoo-de", "ebay-de", "duckduckgo"
+        ]
+      }
+    },
+    "en-GB": {
+      "default": {
+        "searchOrder": ["DuckDuckGo", "Google", "Yahoo.co.uk"],
+        "visibleDefaultEngines": [
+          "duckduckgo-en-GB", "google", "yahoo-en-GB", "amazon-en-GB", "chambers-en-GB", "wikipedia", "ebay-en-GB", "duckduckgo"
+        ]
+      }
+    },
+    "es-AR": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo Argentina", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "duckduckgo-es-AR", "google", "yahoo-ar", "wikipedia-es", "duckduckgo"
+        ]
+      }
+    },
+    "es-ES": {
+      "default": {
+        "visibleDefaultEngines": [
+          "drae", "duckduckgo-es-ES", "google", "amazon-es", "wikipedia-es", "yahoo-es", "ebay-es", "duckduckgo"
+        ]
+      }
+    },
+    "fi": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "duckduckgo-fi-FI", "huuto-fi", "google", "wikipedia-fi", "yahoo-fi", "duckduckgo"
+        ]
+      }
+    },
+    "fr": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "cnrtl-tlfi-fr", "duckduckgo-fr-FR", "google", "amazon-fr", "wikipedia-fr", "yahoo-fr", "ebay-fr", "duckduckgo"
+        ]
+      }
+    },
+    "hu": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "duckduckgo-hu-HU", "google", "vatera", "wikipedia-hu", "duckduckgo"
+        ]
+      }
+    },
+    "it": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "bing", "google", "hoepli", "duckduckgo-it-IT", "amazon-it", "wikipedia-it", "yahoo-it", "ebay-it", "duckduckgo"
+        ]
+      }
+    },
+    "ja-JP-macos": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo! JAPAN", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "google-jp", "yahoo-jp", "amazon-jp", "wikipedia-ja", "duckduckgo-ja-JP", "duckduckgo"
+        ]
+      }
+    },
+    "ja": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo! JAPAN", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "google-jp", "yahoo-jp", "amazon-jp", "wikipedia-ja", "duckduckgo-ja-JP", "duckduckgo"
+        ]
+      }
+    },
+    "ka": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "DuckDuckGo (Global)"],
+        "visibleDefaultEngines": [
+          "google", "duckduckgo", "wikipedia-ka"
+        ]
+      }
+    },
+    "nb-NO": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "duckduckgo-nb-NO", "google", "wikipedia-NO", "yahoo-NO", "duckduckgo"
+        ]
+      }
+    },
+    "nl": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "google", "duckduckgo-nl-NL", "bolcom-nl", "wikipedia-nl", "marktplaats-nl", "yahoo-nl", "ebay-nl", "duckduckgo"
+        ]
+      }
+    },
+    "pl": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Startpage", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "allegro-pl", "duckduckgo-pl-PL", "google", "pwn-pl", "startpage-pl", "wikipedia-pl", "wolnelektury-pl", "duckduckgo"
+        ]
+      }
+    },
+    "pt-BR": {
+      "default": {
+        "searchDefault": "Google",
+        "visibleDefaultEngines": [
+          "google", "duckduckgo-pt-BR", "yahoo-br", "amazon-br", "bing", "wikipedia-pt", "duckduckgo"
+        ]
+      }
+    },
+    "pt-PT": {
+      "default": {
+        "searchOrder": ["DuckDuckGo", "Google", "SAPO", "Priberam", "Wikipedia (pt)"],
+        "visibleDefaultEngines": [
+          "duckduckgo-pt-PT", "google", "sapo", "priberam", "wikipedia-pt", "duckduckgo"
+        ]
+      }
+    },
+    "ru": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "duckduckgo-ru-RU", "google", "wikipedia-ru", "duckduckgo"
+        ]
+      }
+    },
+    "sk": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Azet", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "google", "azet-sk", "atlas-sk", "zoznam-sk", "wikipedia-sk", "duckduckgo-sk-SK", "duckduckgo"
+        ]
+      }
+    },
+    "sv-SE": {
+      "default": {
+        "searchOrder": ["DuckDuckGo", "Google", "Bing"],
+        "visibleDefaultEngines": [
+          "duckduckgo-sv-SE", "bing", "google", "prisjakt-sv-SE", "tyda-sv-SE", "wikipedia-sv-SE", "yahoo-sv-SE", "duckduckgo"
+        ]
+      }
+    },
+    "zh-CN": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo!", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "google", "duckduckgo-zh-CN", "amazon-zh-CN", "wikipedia-zh-CN", "yahoo-zh-CN", "duckduckgo"
+        ]
+      }
+    },
+    "zh-TW": {
+      "default": {
+        "searchDefault": "Google",
+        "searchOrder": ["Google", "Yahoo!", "DuckDuckGo"],
+        "visibleDefaultEngines": [
+          "yahoo-zh-TW", "google", "duckduckgo-zh-TW", "yahoo-bid-zh-TW", "wikipedia-zh-TW", "duckduckgo"
+        ]
+      }
+    }
+  }
+}

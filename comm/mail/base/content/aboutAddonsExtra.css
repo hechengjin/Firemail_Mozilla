@@ -1,0 +1,37 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+:root {
+  --in-content-categories-background: #ebebef;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --in-content-categories-background: rgba(249, 249, 250, 0.1);
+  }
+}
+
+#sidebar {
+  background-color: var(--in-content-categories-background);
+}
+
+/* Hide Plugins category */
+button[name="plugin"] {
+  display: none;
+}
+
+.sidebar-footer-list {
+  margin-bottom: 36px;
+}
+
+/* Hide the help button */
+#help-button {
+  display: none;
+}
+
+/* Hide in extension details the private browsing section */
+section > .addon-detail-row-private-browsing,
+.addon-detail-row-private-browsing + .addon-detail-row.addon-detail-help-row {
+  display: none;
+}
