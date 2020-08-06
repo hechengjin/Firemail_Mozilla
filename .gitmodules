@@ -1,3 +1,24 @@
 [submodule "dom"]
 	path = dom
 	url = https://github.com/zhaomokeji/Firemail_Mozilla_dom.git
+[submodule "js"]
+	path = js
+	url = https://github.com/zhaomokeji/Firemail_Mozilla_js.git
+[submodule "layout"]
+	path = layout
+	url = https://github.com/zhaomokeji/Firemail_Mozilla_layout.git
+[submodule "media"]
+	path = media
+	url = https://github.com/zhaomokeji/Firemail_Mozilla_media.git
+[submodule "security"]
+	path = security
+	url = https://github.com/zhaomokeji/Firemail_Mozilla_security.git
+[submodule "toolkit"]
+	path = toolkit
+	url = https://github.com/zhaomokeji/Firemail_Mozilla_toolkit.git
+[submodule "third_party"]
+	path = third_party
+	url = https://github.com/zhaomokeji/Firemail_Mozilla_third_party.git
+[submodule "testing"]
+	path = testing
+	url = https://github.com/zhaomokeji/Firemail_Mozilla_testing.git
