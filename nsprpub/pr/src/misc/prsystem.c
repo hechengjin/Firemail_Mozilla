@@ -169,6 +169,24 @@ PR_IMPLEMENT(PRStatus) PR_GetSystemInfo(PRSysInfo cmd, char *buf, PRUint32 bufle
             /* Return the architecture of the machine (ie. x86, mips, alpha, ...)*/
             (void)PR_snprintf(buf, buflen, _PR_SI_ARCHITECTURE);
             break;
+        case PR_SI_SYSMACADDRESS:
+#if defined(XP_UNIX) || defined(WIN32)
+          if (PR_FAILURE == _PR_MD_GETSYSINFO(cmd, buf, (PRUintn)buflen)) {
+            return PR_FAILURE;
+          }
+#else
+          (void)PR_snprintf(buf, buflen, _PR_SI_SYSNAME);
+#endif
+          break;
+       case PR_SI_SYSLOCALIP:
+#if defined(XP_UNIX) || defined(WIN32)
+          if (PR_FAILURE == _PR_MD_GETSYSINFO(cmd, buf, (PRUintn)buflen)) {
+            return PR_FAILURE;
+          }
+#else
+          (void)PR_snprintf(buf, buflen, _PR_SI_SYSNAME);
+#endif
+          break;
         default:
             PR_SetError(PR_INVALID_ARGUMENT_ERROR, 0);
             return PR_FAILURE;

@@ -3,8 +3,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-MOZ_APP_BASENAME=Thunderbird
-MOZ_APP_NAME=thunderbird
+MOZ_APP_BASENAME=Firemail
+MOZ_APP_NAME=firemail
 MOZ_UPDATER=1
 
 if test "$OS_ARCH" = "WINNT"; then
@@ -16,7 +16,7 @@ fi
 BROWSER_CHROME_URL=chrome://messenger/content/extensionPopup.xhtml
 
 MOZ_BRANDING_DIRECTORY=$commreltopsrcdir/mail/branding/nightly
-MOZ_OFFICIAL_BRANDING_DIRECTORY=$commreltopsrcdir/mail/branding/thunderbird
+MOZ_OFFICIAL_BRANDING_DIRECTORY=$commreltopsrcdir/mail/branding/firemail
 
 MOZ_APP_ID={3550f703-e582-4d05-9a08-453d09bdfdc6}
 

@@ -10,7 +10,9 @@
 
 #include "primpl.h"
 #include <math.h>     /* for fabs() */
+//#include <winsock2.h>
 #include <windows.h>
+
 
 char *_PR_MD_GET_ENV(const char *name)
 {
@@ -807,13 +809,163 @@ PRStatus _MD_WindowsGetHostName(char *name, PRUint32 namelen)
     _PR_MD_MAP_GETHOSTNAME_ERROR(syserror);
     return PR_FAILURE;
 }
+/*
+void byte2Hex(unsigned char bData, unsigned char hex[]) {
+  int high = bData / 16, low = bData % 16;
+  hex[0] = (high < 10) ? ('0' + high) : ('A' + high - 10);
+  hex[1] = (low < 10) ? ('0' + low) : ('A' + low - 10);
+}
+
+PRBool getLocalMac1(unsigned char* mac)  //获取本机MAC址
+{
+  ULONG ulSize = 0;
+  PIP_ADAPTER_INFO pInfo = NULL;
+  int temp = GetAdaptersInfo(pInfo, &ulSize);  //第一处调用，获取缓冲区大小
+  pInfo = (PIP_ADAPTER_INFO)malloc(ulSize);
+  temp = GetAdaptersInfo(pInfo, &ulSize);
+  int iCount = 0;
+  while (pInfo)  //遍历每一张网卡
+  {
+    //  pInfo->Address MAC址
+    for (int i = 0; i < (int)pInfo->AddressLength; i++) {
+      byte2Hex(pInfo->Address[i], &mac[iCount]);
+      iCount += 2;
+      if (i < (int)pInfo->AddressLength - 1) {
+        mac[iCount++] = ':';
+      } else {
+        mac[iCount++] = '#';
+      }
+    }
+    break;
+    pInfo = pInfo->Next;
+  }
+  free(pInfo);
+
+  if (iCount > 0) {
+    mac[--iCount] = '\0';
+    return PR_TRUE;
+  } else {
+    return false;
+  }
+}
+
+//通过GetAdaptersInfo函数（适用于Windows 2000及以上版本）
+PRBool getLocalMac2(unsigned char* mac) {
+  PRBool ret = PR_FALSE;
+  ULONG ulOutBufLen = sizeof(IP_ADAPTER_INFO);
+  PIP_ADAPTER_INFO pAdapterInfo =
+      (IP_ADAPTER_INFO*)malloc(sizeof(IP_ADAPTER_INFO));
+  if (pAdapterInfo == NULL) return PR_FALSE;
+  // Make an initial call to GetAdaptersInfo to get the necessary size into the
+  // ulOutBufLen variable
+  if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
+    free(pAdapterInfo);
+    pAdapterInfo = (IP_ADAPTER_INFO*)malloc(ulOutBufLen);
+    if (pAdapterInfo == NULL) return PR_FALSE;
+  }
+  if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == NO_ERROR) {
+    for (PIP_ADAPTER_INFO pAdapter = pAdapterInfo; pAdapter != NULL;
+         pAdapter = pAdapter->Next) {
+      // 确保是以太网
+      if (pAdapter->Type != MIB_IF_TYPE_ETHERNET) continue;
+      // 确保MAC地址的长度为 00-00-00-00-00-00
+      if (pAdapter->AddressLength != 6) continue;
+      char acMAC[20] = {0};
+      sprintf(acMAC, "%02X:%02X:%02X:%02X:%02X:%02X", int(pAdapter->Address[0]),
+              int(pAdapter->Address[1]), int(pAdapter->Address[2]),
+              int(pAdapter->Address[3]), int(pAdapter->Address[4]),
+              int(pAdapter->Address[5]));
+      memcpy(mac, acMAC, 20);
+      ret = PR_TRUE;
+      break;
+    }
+  }
+  free(pAdapterInfo);
+  return ret;
+}
+*/
+//通过GetAdaptersAddresses函数（适用于Windows XP及以上版本）
+PRBool getLocalMac3(unsigned char* mac) {
+  PRBool ret = PR_FALSE;
+  //ULONG outBufLen = sizeof(IP_ADAPTER_ADDRESSES);
+  /*
+  
+  PIP_ADAPTER_ADDRESSES pAddresses = (IP_ADAPTER_ADDRESSES*)malloc(outBufLen);
+  if (pAddresses == NULL) return PR_FALSE;
+  // Make an initial call to GetAdaptersAddresses to get the necessary size into
+  // the ulOutBufLen variable
+  if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pAddresses, &outBufLen) ==
+      ERROR_BUFFER_OVERFLOW) {
+    free(pAddresses);
+    pAddresses = (IP_ADAPTER_ADDRESSES*)malloc(outBufLen);
+    if (pAddresses == NULL) return PR_FALSE;
+  }
+
+  if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pAddresses, &outBufLen) ==
+      NO_ERROR) {
+    // If successful, output some information from the data we received
+    for (PIP_ADAPTER_ADDRESSES pCurrAddresses = pAddresses;
+         pCurrAddresses != NULL; pCurrAddresses = pCurrAddresses->Next) {
+      // 确保MAC地址的长度为 00-00-00-00-00-00
+      if (pCurrAddresses->PhysicalAddressLength != 6) continue;
+      char acMAC[20] = {0};
+      sprintf(acMAC, "%02X:%02X:%02X:%02X:%02X:%02X",
+              int(pCurrAddresses->PhysicalAddress[0]),
+              int(pCurrAddresses->PhysicalAddress[1]),
+              int(pCurrAddresses->PhysicalAddress[2]),
+              int(pCurrAddresses->PhysicalAddress[3]),
+              int(pCurrAddresses->PhysicalAddress[4]),
+              int(pCurrAddresses->PhysicalAddress[5]));
+      memcpy(mac, acMAC, 20);
+      ret = PR_TRUE;
+      break;
+    }
+  }
+  free(pAddresses);
+  */
+  memcpy(mac, "00:00:00:00:00:00", 20);
+  ret = PR_TRUE;
+  return ret;
+}
+
+
+PRBool GetLocalIP(char* ip)
+{
+  /*
+	//1.初始化wsa
+	WSADATA wsaData;
+	int ret=WSAStartup(MAKEWORD(2,2),&wsaData);
+	if (ret!=0)
+	{
+		return PR_FALSE;
+	}
+	//2.获取主机名
+	char hostname[256];
+	ret=gethostname(hostname,sizeof(hostname));
+	if (ret==SOCKET_ERROR)
+	{
+		return PR_FALSE;
+	}
+	//3.获取主机ip
+	HOSTENT* host=gethostbyname(hostname);
+	if (host==NULL)
+	{
+		return PR_FALSE;
+	}
+	//4.转化为char*并拷贝返回
+	strcpy(ip,inet_ntoa(*(in_addr*)(*host->h_addr_list)));
+  */
+  strcpy(ip,"0.0.0.0");
+	return PR_TRUE;
+}
 
 PRStatus _MD_WindowsGetSysInfo(PRSysInfo cmd, char *name, PRUint32 namelen)
 {
     OSVERSIONINFO osvi;
 
     PR_ASSERT((cmd == PR_SI_SYSNAME) || (cmd == PR_SI_RELEASE) ||
-              (cmd == PR_SI_RELEASE_BUILD));
+              (cmd == PR_SI_RELEASE_BUILD) ||
+              (cmd == PR_SI_SYSMACADDRESS) || (cmd == PR_SI_SYSLOCALIP));
 
     ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
     osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
@@ -821,6 +973,25 @@ PRStatus _MD_WindowsGetSysInfo(PRSysInfo cmd, char *name, PRUint32 namelen)
     if (! GetVersionEx (&osvi) ) {
         _PR_MD_MAP_DEFAULT_ERROR(GetLastError());
         return PR_FAILURE;
+    }
+    
+    if (PR_SI_SYSMACADDRESS == cmd) {
+      unsigned char szMac[20] = {0};
+      //为了确保获取到MAC地址，通过三种方式来获取
+      if (!getLocalMac3(szMac)) {
+        /*if (!getLocalMac2(szMac)) {
+          getLocalMac1(szMac);
+        }*/
+      }
+      (void)PR_snprintf(name, namelen, szMac);
+    }
+    
+    if (PR_SI_SYSLOCALIP == cmd) {
+      char ip[30] = {0};
+      if (GetLocalIP(ip))
+      {
+          (void)PR_snprintf(name, namelen, ip);
+      }
     }
 
     switch (osvi.dwPlatformId) {

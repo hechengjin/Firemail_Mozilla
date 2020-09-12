@@ -52,7 +52,7 @@
         <label id="distribution" class="text-blurb"/>
         <label id="distributionId" class="text-blurb"/>
 
-        <vbox id="detailsBox">
+        <vbox id="detailsBox" hidden="true">
           <vbox id="updateBox">
 #ifdef MOZ_UPDATER
             <deck id="updateDeck" orient="vertical">
@@ -135,7 +135,7 @@
         </vbox>
       </vbox>
     </hbox>
-    <vbox id="bottomBox">
+    <vbox id="bottomBox" hidden="true">
       <hbox pack="center">
         <label class="text-link bottom-link" onclick="openAboutTab('about:license');">&bottomLinks.license;</label>
         <label class="text-link bottom-link" onclick="openAboutTab('about:rights');">&bottomLinks.rights;</label>

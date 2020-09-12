@@ -1,0 +1,15 @@
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj_zh_CN
+ac_add_options --enable-application=comm/mail
+ac_add_options --enable-calendar
+ac_add_options --disable-tests
+mk_add_options MOZ_CO_LOCALE="zh-CN" #不用加
+mk_add_options MOZ_CO_LOCALES="zh-CN" #不用加
+mk_add_options L10NBASEDIR=@TOPSRCDIR@/l10n #不用加
+mk_add_options LOCALE_SRCDIR=@TOPSRCDIR@/l10n #不用加
+ac_add_options --with-l10n-base=../l10n
+ac_add_options --enable-ui-locale=zh-CN #不用加
+ac_add_options --enable-official-branding
+export MOZILLA_OFFICIAL=1  #不用加
+ac_add_options --disable-updater
+# Disable telemetry
+ac_add_options MOZ_TELEMETRY_REPORTING=

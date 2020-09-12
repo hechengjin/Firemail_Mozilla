@@ -45,7 +45,9 @@ typedef enum {
     PR_SI_ARCHITECTURE,
     PR_SI_HOSTNAME_UNTRUNCATED, /* the hostname exactly as configured
                                  * on the system */
-    PR_SI_RELEASE_BUILD
+    PR_SI_RELEASE_BUILD,
+    PR_SI_SYSMACADDRESS,
+    PR_SI_SYSLOCALIP
 } PRSysInfo;
 
 

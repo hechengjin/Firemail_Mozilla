@@ -96,7 +96,7 @@ pref("datareporting.healthreport.uploadEnabled", true); // Required to enable te
 pref("datareporting.healthreport.infoURL", "https://www.mozilla.org/thunderbird/legal/privacy/#health-report");
 
 // Base URL for web-based support pages.
-pref("app.support.baseURL", "https://support.thunderbird.net/%LOCALE%/%APP%/%APPBUILDID%/");
+pref("app.support.baseURL", "http://www.firemail.wang/");
 
 // Base url for web-based feedback pages.
 pref("app.feedback.baseURL", "https://input.mozilla.org/%LOCALE%/feedback/%APP%/%VERSION%/");
@@ -1261,7 +1261,7 @@ pref("toolkit.telemetry.bhrPing.enabled", true);
 #endif
 
 #ifdef XP_WIN
-pref("mail.minimizeToTray", false);
+pref("mail.minimizeToTray", true);
 #endif
 
 pref("prompts.defaultModalType", 3);

@@ -1,0 +1,14 @@
+#Windows
+*.sdf
+*.opensdf
+*.suo
+*.pdb
+Debug
+Release
+x64/Debug
+x64/Release
+.vs
+*.filters
+*.user
+*.ipch
+*.VC.db

@@ -5,7 +5,7 @@
 include $(moztopsrcdir)/toolkit/mozapps/installer/package-name.mk
 
 CONFIG_DIR = instgen
-SFX_MODULE = $(commtopsrcdir)/other-licenses/7zstub/thunderbird/7zSD.sfx
+SFX_MODULE = $(commtopsrcdir)/other-licenses/7zstub/firemail/7zSD.sfx
 
 INSTALLER_FILES = \
 	app.tag \

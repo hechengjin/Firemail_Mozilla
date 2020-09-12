@@ -48,7 +48,7 @@ Var RegisterDefaultAgent
 ; are a member of the Administrators group.
 !define NONADMIN_ELEVATE
 
-!define AbortSurveyURL "https://live.thunderbird.net/survey/cancel/?page="
+!define AbortSurveyURL "https://live.Firemail.net/survey/cancel/?page="
 
 ; Other included files may depend upon these includes!
 ; The following includes are provided by NSIS.
@@ -248,10 +248,10 @@ Section "-InstallStartCleanup"
   ${EndIf}
 
   ; setup the application model id registration value
-  ${InitHashAppModelId} "$INSTDIR" "Software\Mozilla\${AppName}\TaskBarIDs"
+  ${InitHashAppModelId} "$INSTDIR" "Software\Chunhuitech\${AppName}\TaskBarIDs"
 
   ; Remove the updates directory
-  ${CleanUpdateDirectories} "Thunderbird" "Mozilla\updates"
+  ${CleanUpdateDirectories} "Firemail" "Chunhuitech\updates"
 
   ; Upgrade the copies of the MAPI DLL's
   ${UpgradeMapiDLLs}
@@ -363,7 +363,7 @@ Section "-Application" APP_IDX
     StrCpy $AddDesktopSC "1"
   ${EndIf}
 
-  ${CreateUpdateDir} "Mozilla"
+  ${CreateUpdateDir} "Chunhuitech"
   ${If} ${Errors}
     Pop $0
     ${LogMsg} "** ERROR Failed to create update directory: $0"
@@ -371,19 +371,19 @@ Section "-Application" APP_IDX
 
   ${LogHeader} "Adding Registry Entries"
   SetShellVarContext current  ; Set SHCTX to HKCU
-  ${RegCleanMain} "Software\Mozilla"
+  ${RegCleanMain} "Software\Chunhuitech"
   ${RegCleanUninstall}
   ${UpdateProtocolHandlers}
 
   ClearErrors
-  WriteRegStr HKLM "Software\Mozilla" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\Chunhuitech" "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     StrCpy $TmpVal "HKCU" ; used primarily for logging
   ${Else}
     SetShellVarContext all  ; Set SHCTX to HKLM
-    DeleteRegValue HKLM "Software\Mozilla" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Chunhuitech" "${BrandShortName}InstallerTest"
     StrCpy $TmpVal "HKLM" ; used primarily for logging
-    ${RegCleanMain} "Software\Mozilla"
+    ${RegCleanMain} "Software\Chunhuitech"
     ${RegCleanUninstall}
     ${UpdateProtocolHandlers}
   ${EndIf}
@@ -415,11 +415,11 @@ Section "-Application" APP_IDX
 
   ; An empty string is used for the 5th param because ThunderbirdEML is not a
   ; protocol handler
-  ${AddHandlerValues} "$0\ThunderbirdEML"  "$1" "$8,0" \
+  ${AddHandlerValues} "$0\FiremailEML"  "$1" "$8,0" \
                       "${AppRegNameMail} Document" "" ""
-  ${AddHandlerValues} "$0\Thunderbird.Url.mailto"  "$2" "$8,0" \
+  ${AddHandlerValues} "$0\Firemail.Url.mailto"  "$2" "$8,0" \
                       "${AppRegNameMail} URL" "delete" ""
-  ${AddHandlerValues} "$0\Thunderbird.Url.news" "$3" "$8,0" \
+  ${AddHandlerValues} "$0\Firemail.Url.news" "$3" "$8,0" \
                       "${AppRegNameNews} URL" "delete" ""
 
   ; For pre win8, the following keys should only be set if we can write to HKLM.
@@ -906,7 +906,7 @@ FunctionEnd
 !ifdef MOZ_MAINTENANCE_SERVICE
 Function preComponents
   ; If the service already exists, don't show this page
-  ServicesHelper::IsInstalled "MozillaMaintenance"
+  ServicesHelper::IsInstalled "ChunhuitechMaintenance"
   Pop $R9
   ${If} $R9 == 1
     ; The service already exists so don't show this page.
@@ -923,13 +923,13 @@ Function preComponents
 
   ; Only show the maintenance service page if we have write access to HKLM
   ClearErrors
-  WriteRegStr HKLM "Software\Mozilla" \
+  WriteRegStr HKLM "Software\Chunhuitech" \
               "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     ClearErrors
     Abort
   ${Else}
-    DeleteRegValue HKLM "Software\Mozilla" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Chunhuitech" "${BrandShortName}InstallerTest"
   ${EndIf}
 
   StrCpy $PageName "Components"
@@ -994,9 +994,9 @@ Function preSummary
 
   ; Check if it is possible to write to HKLM
   ClearErrors
-  WriteRegStr HKLM "Software\Thunderbird" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\Firemail" "${BrandShortName}InstallerTest" "Write Test"
   ${Unless} ${Errors}
-    DeleteRegValue HKLM "Software\Thunderbird" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Firemail" "${BrandShortName}InstallerTest"
     ; Check if Firefox is already the handler for http. This is set on all
     ; versions of Windows.
     ${IsHandlerForInstallDir} "http" $R9

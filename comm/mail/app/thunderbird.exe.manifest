@@ -6,7 +6,7 @@
         name="Mozilla.Thunderbird"
         type="win32"
 />
-<description>Mozilla Thunderbird</description>
+<description>Chunhuitech Firemail</description>
 <dependency>
         <dependentAssembly>
                 <assemblyIdentity

@@ -521,10 +521,11 @@ function msgNewMailAccount(msgWindow, okCallback, extraData) {
   if (existingWindow) {
     existingWindow.focus();
   } else {
-    window.openDialog(
+    // disabling modal for the time being, see 688273 REMOVEME
+    window.docShell.rootTreeItem.domWindow.openDialog(
       "chrome://messenger/content/accountcreation/emailWizard.xhtml",
       "AccountSetup",
-      "chrome,titlebar,resizable,centerscreen",
+      "chrome,titlebar,centerscreen,resizable",
       { msgWindow, okCallback, extraData }
     );
   }

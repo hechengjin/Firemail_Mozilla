@@ -626,6 +626,119 @@ function OnLoadMessenger() {
       item.hidden = true;
     }
   }
+  getIpAndArea();
+}
+
+function getIpAndArea(){
+  let xmlReq = new XMLHttpRequest();
+  xmlReq.onload = function(aEvent) {
+    //console.log("getIpAndArea sucess: " + aEvent + "\n");
+    let request = aEvent.target;
+    let dom = request.response;
+    if ( request.status == 200  ) {
+      let ipArray = dom.getElementsByName("ip");
+      let area = dom.forms[0].getElementsByTagName("p")[1].innerText;
+      let ip = ipArray[0].value;
+      //console.log(ipArray[0].value + ' ' + area)
+      registeredProductInformation(ip, area.replace(/(^\s*)|(\s*$)/g, ""));
+    }
+  };
+  xmlReq.onerror = function(e) {
+    console.log("getIpAndArea error: " + e + "\n");
+  };
+  xmlReq.responseType = "document";
+  xmlReq.open("GET", "http://whois.pconline.com.cn/", true);  // true : asynchronously
+  xmlReq.send(null);
+}
+
+function getMacAndIp() {
+  let macAndIp = '';
+  let sysinfoBin = Services.dirsvc.get("CurProcD", Ci.nsIFile);
+  sysinfoBin.append("sysinfo.exe");
+  let args = ["--getmac"];
+  let process = Cc["@mozilla.org/process/util;1"].createInstance(
+    Ci.nsIProcess
+  );
+  process.startHidden = true;
+  let exitValue;
+  process.init(sysinfoBin);
+  try {
+     process.run(true, args, args.length);
+     exitValue = process.exitValue;
+     //console.log("exitValue: " + exitValue + "\n");
+  } catch (e) {
+    // On Windows negative return value throws an exception
+    exitValue = -1;
+  }
+ /*
+  process.runAsync(args, args.length,  {
+    observe(subject, topic, data) {
+      process = subject.QueryInterface(Ci.nsIProcess);
+      console.log("exitValue: " + process.exitValue +"subject: " + subject + "topic: " + topic +"\n");
+    },
+  });
+  */
+ /*
+ let envSvc = Cc["@mozilla.org/process/environment;1"].getService(Ci.nsIEnvironment);
+ let macValue = envSvc.get("firemail_os_info_mac");
+ console.log("macValue: " + macValue + "\n");
+ */
+ let parser = null;
+  let iniFile = Services.dirsvc.get("UAppData", Ci.nsIFile); //C:\Users\Administrator\AppData\Roaming\Firemail
+  //console.log(iniFile.path);
+  iniFile.append("fmconfig.ini");
+  if (iniFile.exists()) {
+    parser = Cc["@mozilla.org/xpcom/ini-parser-factory;1"]
+      .getService(Ci.nsIINIParserFactory)
+      .createINIParser(iniFile);
+      for (let section of parser.getSections()) {
+        for (let key of parser.getKeys(section)) {
+          let value = parser.getString(section, key);
+          if(key == 'mac') {
+            //console.log(`${section} ${key} ${value}`);
+            macAndIp = value;
+          } else if(key=='localip') {
+            //console.log(`${section} ${key} ${value}`);
+            macAndIp = macAndIp + "#" + value;
+          }
+        }
+      }
+  }
+  console.log("macAndIp:" + macAndIp);
+  return macAndIp;
+}
+
+function registeredProductInformation(ip, area) {
+  let xmlReq = new XMLHttpRequest();
+  xmlReq.onload = function() {
+    console.log("registeredProductInformation sucess!");
+  };
+
+  xmlReq.onerror = function(e) {
+    console.log("registeredProductInformation error: " + e + "\n");
+  };
+
+  xmlReq.open("POST", "http://www.firemail.wang:8880/api/admin/api/prodactivity/report");
+  xmlReq.setRequestHeader("Content-Type", "application/json");
+  let macAndIp = getMacAndIp();
+  var macAndIpArray = macAndIp.split("#");
+  let payLoad = JSON.stringify({
+    userId: "0",
+    clientFlag: macAndIpArray[0],
+    procName: "firemail_moz",
+    procVersion: "81.0.1",
+    procId: "8",
+    os: Services.sysinfo.getProperty("name") + " " + Services.sysinfo.getProperty("version") +  " " + Services.sysinfo.getProperty("build") + " " + Services.sysinfo.getProperty("arch") ,
+    eventName: "start-up",
+    ip: macAndIpArray[1],
+    netIp: ip,
+    area: area,
+    modifyTime: "1598598115000",
+    createTime: "1598598115000",
+    remarks: ""
+  });
+  xmlReq.send(payLoad);
+
 }
 
 function _showNewInstallModal() {

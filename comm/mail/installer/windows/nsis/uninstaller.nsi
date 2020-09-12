@@ -34,7 +34,7 @@ ManifestDPIAware true
 !define NO_LOG
 
 !define MaintUninstallKey \
- "Software\Microsoft\Windows\CurrentVersion\Uninstall\MozillaMaintenanceService"
+ "Software\Microsoft\Windows\CurrentVersion\Uninstall\ChunhuitechMaintenanceService"
 
 Var TmpVal
 Var MaintCertKey
@@ -190,7 +190,7 @@ Function un.UninstallServiceIfNotUsed
   ; Figure out the number of subkeys
   StrCpy $0 0
   ${Do}
-    EnumRegKey $1 HKLM "Software\Mozilla\MaintenanceService" $0
+    EnumRegKey $1 HKLM "Software\Chunhuitech\MaintenanceService" $0
     ${If} "$1" == ""
       ${ExitDo}
     ${EndIf}
@@ -256,10 +256,10 @@ Section "Uninstall"
   ${EndIf}
 
   ; setup the application model id registration value
-  ${un.InitHashAppModelId} "$INSTDIR" "Software\Mozilla\${AppName}\TaskBarIDs"
+  ${un.InitHashAppModelId} "$INSTDIR" "Software\Chunhuitech\${AppName}\TaskBarIDs"
 
   SetShellVarContext current  ; Set SHCTX to HKCU
-  ${un.RegCleanMain} "Software\Mozilla"
+  ${un.RegCleanMain} "Software\Chunhuitech"
   ${un.RegCleanUninstall}
   ${un.DeleteShortcuts}
 
@@ -270,51 +270,51 @@ Section "Uninstall"
   ${EndIf}
 
   ; Remove the updates directory
-  ${un.CleanUpdateDirectories} "Thunderbird" "Mozilla\updates"
+  ${un.CleanUpdateDirectories} "Firemail" "Chunhuitech\updates"
 
   ; Remove any app model id's stored in the registry for this install path
-  DeleteRegValue HKCU "Software\Mozilla\${AppName}\TaskBarIDs" "$INSTDIR"
-  DeleteRegValue HKLM "Software\Mozilla\${AppName}\TaskBarIDs" "$INSTDIR"
+  DeleteRegValue HKCU "Software\Chunhuitech\${AppName}\TaskBarIDs" "$INSTDIR"
+  DeleteRegValue HKLM "Software\Chunhuitech\${AppName}\TaskBarIDs" "$INSTDIR"
 
   ClearErrors
-  WriteRegStr HKLM "Software\Mozilla" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\Chunhuitech" "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     StrCpy $TmpVal "HKCU" ; used primarily for logging
   ${Else}
     SetShellVarContext all  ; Set SHCTX to HKLM
-    DeleteRegValue HKLM "Software\Mozilla" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Chunhuitech" "${BrandShortName}InstallerTest"
     StrCpy $TmpVal "HKLM" ; used primarily for logging
-    ${un.RegCleanMain} "Software\Mozilla"
+    ${un.RegCleanMain} "Software\Chunhuitech"
     ${un.RegCleanUninstall}
     ${un.DeleteShortcuts}
   ${EndIf}
 
-  ${un.RegCleanAppHandler} "Thunderbird.Url.mailto"
-  ${un.RegCleanAppHandler} "Thunderbird.Url.news"
-  ${un.RegCleanAppHandler} "ThunderbirdEML"
+  ${un.RegCleanAppHandler} "Firemail.Url.mailto"
+  ${un.RegCleanAppHandler} "Firemail.Url.news"
+  ${un.RegCleanAppHandler} "FiremailEML"
   ${un.RegCleanProtocolHandler} "mailto"
   ${un.RegCleanProtocolHandler} "news"
   ${un.RegCleanProtocolHandler} "nntp"
   ${un.RegCleanProtocolHandler} "snews"
 
   ClearErrors
-  ReadRegStr $R9 HKCR "ThunderbirdEML" ""
+  ReadRegStr $R9 HKCR "FiremailEML" ""
   ; Don't clean up the file handlers if the ThunderbirdEML key still exists
   ; since there could be a second installation that may be the default file
   ; handler.
   ${If} ${Errors}
-    ${un.RegCleanFileHandler}  ".eml"   "ThunderbirdEML"
-    ${un.RegCleanFileHandler}  ".wdseml" "ThunderbirdEML"
+    ${un.RegCleanFileHandler}  ".eml"   "FiremailEML"
+    ${un.RegCleanFileHandler}  ".wdseml" "FiremailEML"
     DeleteRegValue HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\explorer\KindMap" ".wdseml"
     ; It doesn't matter if the value didn't exist
     ClearErrors
   ${EndIf}
 
   SetShellVarContext all  ; Set SHCTX to HKLM
-  ${un.GetSecondInstallPath} "Software\Mozilla" $R9
+  ${un.GetSecondInstallPath} "Software\Chunhuitech" $R9
   ${If} $R9 == "false"
     SetShellVarContext current  ; Set SHCTX to HKCU
-    ${un.GetSecondInstallPath} "Software\Mozilla" $R9
+    ${un.GetSecondInstallPath} "Software\Chunhuitech" $R9
   ${EndIf}
 
   StrCpy $0 "Software\Clients\Mail\${ClientsRegName}\shell\open\command"
@@ -445,7 +445,7 @@ Section "Uninstall"
 !endif
 
 !ifdef MOZ_BITS_DOWNLOAD
-  BitsUtils::CancelBitsJobsByName "MozillaUpdate $AppUserModelID"
+  BitsUtils::CancelBitsJobsByName "ChunhuitechUpdate $AppUserModelID"
   Pop $0
 !endif
 
